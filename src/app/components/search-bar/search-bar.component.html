@@ -1,0 +1,19 @@
+<div class="bg-gray-800 p-4 shadow-lg">
+  <form class="flex items-center justify-center gap-4">
+    <input
+      class="text-center text-gray-200 flex-1 bg-gray-700 py-3 px-6 rounded-full"
+      type="text"
+      placeholder="🔍 Digite um nome de usuário do GitHub..."
+      [formControl]="searchControl"
+    />
+
+    <button
+      class="bg-green-600 hover:bg-green-700 disabled:bg-red-600 text-gray-200 font-bold py-3 pc-6 rounded-full w-40 transition-all"
+      [disabled]="!searchControl.value"
+      type="submit"
+      (click)="search($event)"
+    >
+      Pesquisar
+    </button>
+  </form>
+</div>
