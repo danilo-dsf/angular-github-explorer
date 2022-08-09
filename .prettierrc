@@ -7,5 +7,6 @@
   "trailingComma": "all",
   "space-before-function-paren": true,
   "insertSpaceBeforeFunctionParenthesis": true,
-  "insertSpaceAfterFunctionKeywordForAnonymousFunctions": true
+  "insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
+  "endOfLine": "auto"
 }

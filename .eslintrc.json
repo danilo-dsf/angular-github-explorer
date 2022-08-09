@@ -47,13 +47,7 @@
           }
         ],
         "@typescript-eslint/member-ordering": 0,
-        "@typescript-eslint/naming-convention": 0,
-        "prettier/prettier": [
-          "error",
-          {
-            "endOfLine": "auto"
-          }
-        ]
+        "@typescript-eslint/naming-convention": 0
       }
     },
     {
@@ -79,7 +73,6 @@
         "prettier/prettier": [
           "error",
           {
-            "endOfLine": "auto",
             "parser": "angular"
           }
         ]
