@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { GithubService } from 'src/app/services/github.service';
+
+type RequestStatus = 'LOADING' | 'SUCCESS' | 'ERROR';
 
 @Component({
   selector: 'app-search-bar',
@@ -8,19 +10,31 @@ import { GithubService } from 'src/app/services/github.service';
   styleUrls: ['./search-bar.component.scss'],
 })
 export class SearchBarComponent {
-  public searchControl = new FormControl('');
+  public searchControl = new FormControl('', [Validators.required]);
+
+  public searchRequestStatus: RequestStatus;
 
   constructor(private github: GithubService) {}
 
-  public search(event: any) {
+  public async search(event: any) {
     event.preventDefault();
 
-    if (!this.searchControl.value) {
-      return;
+    this.searchRequestStatus = 'LOADING';
+
+    try {
+      if (this.searchControl.invalid) {
+        return;
+      }
+
+      const username = this.searchControl.value;
+
+      await this.github.getUserProfile(username);
+
+      this.searchRequestStatus = 'SUCCESS';
+    } catch (error) {
+      console.log(error);
+
+      this.searchRequestStatus = 'ERROR';
     }
-
-    const username = this.searchControl.value;
-
-    this.github.getUserProfile(username).subscribe((profile) => console.log(profile));
   }
 }

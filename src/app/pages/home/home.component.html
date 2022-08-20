@@ -1,5 +1,74 @@
-<div class="bg-gray-900 h-screen">
+<div class="bg-gray-900 h-screen flex flex-col">
   <header>
     <app-search-bar class="z-10"></app-search-bar>
   </header>
+
+  <main class="flex-1 max-w-2xl w-full mx-auto" *ngIf="userProfile$ | async; else userProfilePlaceholder">
+    <header class="flex flex-col items-center justify-center gap-4 pt-16">
+      <img [src]="userProfile.avatar_url" [alt]="userProfile.name" class="w-32 h-32 rounded-full shadow-lg" />
+
+      <h1 class="flex flex-col text-center">
+        <a
+          class="text-white font-bold text-xl capitalize hover:underline cursor-pointer"
+          [href]="userProfile.html_url"
+          target="_blank"
+        >
+          {{ userProfile.name }}
+        </a>
+
+        <p class="text-gray-400 text-base">{{ userProfile.login }}</p>
+
+        <small class="text-xs text-gray-600 italic">{{ 'member since ' + userProfile.created_at }}</small>
+      </h1>
+    </header>
+
+    <main class="grid grid-cols-2 gap-4 p-8">
+      <div
+        class="flex flex-col gap-2 rounded-lg border-2 border-gray-800 hover:border-gray-600 transition-all p-4 cursor-pointer"
+      >
+        <h1 class="text-gray-500 text-sm flex items-center gap-2">
+          <i-feather name="users" style="width: 0.875rem; height: 0.875rem"></i-feather>
+          <span>Followers</span>
+        </h1>
+
+        <span class="text-gray-300 font-extrabold text-2xl">{{ userProfile.followers }}</span>
+      </div>
+
+      <div
+        class="flex flex-col gap-2 rounded-lg border-2 border-gray-800 hover:border-gray-600 transition-all p-4 cursor-pointer"
+      >
+        <h1 class="text-gray-500 text-sm">Following</h1>
+
+        <span class="text-gray-300 font-extrabold text-2xl">{{ userProfile.following }}</span>
+      </div>
+
+      <div
+        class="flex flex-col gap-2 rounded-lg border-2 border-gray-800 hover:border-gray-600 transition-all p-4 cursor-pointer"
+      >
+        <h1 class="text-gray-500 text-sm flex items-center gap-2">
+          <i-feather name="book" style="width: 0.875rem; height: 0.875rem"></i-feather>
+          <span>Public repos</span>
+        </h1>
+
+        <span class="text-gray-300 font-extrabold text-2xl">{{ userProfile.public_repos }}</span>
+      </div>
+
+      <div
+        class="flex flex-col gap-2 rounded-lg border-2 border-gray-800 hover:border-gray-600 transition-all p-4 cursor-pointer"
+      >
+        <h1 class="text-gray-500 text-sm flex items-center gap-2">
+          <i-feather name="code" style="width: 0.875rem; height: 0.875rem"></i-feather>
+          <span>Public gists</span>
+        </h1>
+
+        <span class="text-gray-300 font-extrabold text-2xl">{{ userProfile.public_gists }}</span>
+      </div>
+    </main>
+  </main>
+
+  <ng-template #userProfilePlaceholder>
+    <div class="flex-1 flex items-center justify-center">
+      <i-feather name="github" class="text-gray-600 animate-pulse" style="width: 128px; height: 128px"></i-feather>
+    </div>
+  </ng-template>
 </div>
